@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using AutoMapper;
@@ -10,18 +11,24 @@ using Hahn.ApplicatonProcess.December2020.Data.Database;
 using Hahn.ApplicatonProcess.December2020.Data.Repository.V1;
 using Hahn.ApplicatonProcess.December2020.Domain.Entities;
 using Hahn.ApplicatonProcess.December2020.Web.Filters;
+using Hahn.ApplicatonProcess.December2020.Web.Localization;
 using Hahn.ApplicatonProcess.December2020.Web.Middleware;
 using Hahn.ApplicatonProcess.December2020.Web.Models.v1;
 using Hahn.ApplicatonProcess.December2020.Web.Validators.v1;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using JsonStringLocalizerFactory = Askmethat.Aspnet.JsonLocalizer.Localizer.JsonStringLocalizerFactory;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -59,6 +66,26 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             //    //x.AssumeDefaultVersionWhenUnspecified = true;
             //    x.ReportApiVersions = true;
             //});
+
+
+            #region Localization
+            services.AddSingleton<IdentityLocalizationService>();
+            services.AddLocalization(o =>
+            {
+                // We will put our translations in a folder called Resources
+                o.ResourcesPath = "Resources";
+            });
+            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+            services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization(options =>
+                {
+                });
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
+            #endregion
+
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
@@ -95,6 +122,27 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
             // Add the middleware the handle the exception at global level
             app.UseGlobalExceptionMiddleware();
+
+            #region Localization
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("de-DE")
+            };
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "de-DE", uiCulture: "de-DE"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            };
+            app.UseRequestLocalization(localizationOptions);
+
+            var requestProvider = new RouteDataRequestCultureProvider();
+            localizationOptions.RequestCultureProviders.Insert(0, requestProvider);
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
+
+            #endregion
         }
     }
 }

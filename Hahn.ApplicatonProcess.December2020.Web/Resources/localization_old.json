@@ -1,0 +1,36 @@
+[
+  {
+    "UnableToRetrieve": {
+      "en-US": "Unable to get data.",
+      "de-DE": "Daten können nicht abgerufen werden."
+    },
+    "RecordSaved": {
+      "en-US": "Record saved successfully.!",
+      "de-DE": "Datensatz erfolgreich gespeichert.!"
+    },
+    "UnableToSave": {
+      "en-US": "Unable to save data.",
+      "de-DE": "Daten können nicht gespeichert werden."
+    },
+    "NotFoundApplicant": {
+      "en-US": "No applicant found with the id ",
+      "de-DE": "Kein Bewerber mit der ID gefunden."
+    },
+    "RecordUpdated": {
+      "en-US": "Record updated successfully.!",
+      "de-DE": "Datensatz erfolgreich aktualisiert."
+    },
+    "UnableToUpdate": {
+      "en-US": "Unable to update data.",
+      "de-DE": "Daten können nicht abgerufen werden."
+    },
+    "UnableToDelete": {
+      "en-US": "Unable to delete record.",
+      "de-DE": "Datensatz kann nicht gelöscht werden."
+    },
+    "RecordDeleted": {
+      "en-US": "Record deleted successfully.!",
+      "de-DE": "Datensatz erfolgreich aktualisiert.!"
+    }
+  }
+]

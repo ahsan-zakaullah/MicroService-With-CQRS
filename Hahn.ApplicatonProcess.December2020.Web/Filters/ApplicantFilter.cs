@@ -20,7 +20,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Filters
                 {
                     ["id"] = new OpenApiInteger(1),
                     ["Name"] = new OpenApiString("Ahsan"),
-                    ["FamilyName"] = new OpenApiString("Raza"),
+                    ["FamilyName"] = new OpenApiString("Zaka Ullah"),
                     ["Address"] = new OpenApiString("Intagleo Systems"),
                     ["CountryOfOrigin"] = new OpenApiString("Pakistan"),
                     ["EmailAddress"] = new OpenApiString("ahsan.raza@intagleo.com"),
@@ -31,7 +31,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Filters
                 {
                     ["id"] = new OpenApiInteger(1),
                     ["Name"] = new OpenApiString("Ahsan"),
-                    ["FamilyName"] = new OpenApiString("Raza"),
+                    ["FamilyName"] = new OpenApiString("Zaka Ullah"),
                     ["Address"] = new OpenApiString("Intagleo Systems, Lahore"),
                     ["CountryOfOrigin"] = new OpenApiString("Pakistan"),
                     ["EmailAddress"] = new OpenApiString("ahsan.raza@intagleo.com"),

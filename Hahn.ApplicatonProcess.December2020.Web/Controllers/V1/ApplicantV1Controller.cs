@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command;
@@ -10,6 +11,7 @@ using Hahn.ApplicatonProcess.December2020.Web.Models.v1;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
@@ -20,11 +22,18 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         private readonly ILogger<ApplicantV1Controller> _logger;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
-        public ApplicantV1Controller(IMapper mapper, IMediator mediator, ILogger<ApplicantV1Controller> logger)
+        private readonly IStringLocalizer<ApplicantV1Controller> _localizer;
+        public ApplicantV1Controller(IMapper mapper, IMediator mediator, ILogger<ApplicantV1Controller> logger, IStringLocalizer<ApplicantV1Controller> localizer)
         {
             _mapper = mapper;
             _mediator = mediator;
             _logger = logger;
+            _localizer = localizer;
+            //string currentCulture = Request.Query["culture"];
+            //if (!string.IsNullOrEmpty(currentCulture))
+            //{
+            //    CultureInfo.CurrentCulture = new CultureInfo(currentCulture);
+            //}
         }
 
         /// <summary>
@@ -58,7 +67,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
-                return BadRequest("Unable to get data.");
+                return BadRequest($"{_localizer["UnableToRetrieve"]}");
             }
 
         }
@@ -86,14 +95,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                 });
                 if (isSaved)
                 {
-                    return Ok("Record saved successfully.!");
+                    return Ok($"{_localizer["RecordSaved"]}");
                 }
 
-                return BadRequest("Unable to save record..");
+                return BadRequest($"{_localizer["UnableToSave"]}");
             }
             catch (HahnException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest($"{_localizer["NotFoundApplicant"]}");
             }
             catch (Exception ex)
             {
@@ -125,7 +134,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
 
                 if (applicant == null)
                 {
-                    return BadRequest($"No applicant found with the id {updateApplicantModel.Id}");
+                    return NotFound($"{_localizer["NotFoundApplicant"]} {updateApplicantModel.Id}");
                 }
 
                 var isUpdated = await _mediator.Send(new UpdateApplicantCommand
@@ -134,10 +143,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                 });
                 if (isUpdated)
                 {
-                    return Ok("Record updated successfully.!");
+                    return Ok($"{_localizer["RecordUpdated"]}");
                 }
 
-                return BadRequest("Unable to update record..");
+                return BadRequest($"{_localizer["UnableToUpdate"]}");
             }
             catch (HahnException e)
             {
@@ -173,7 +182,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
 
                 if (applicant == null)
                 {
-                    return BadRequest($"No applicant found with the id {id}");
+                    return BadRequest($"{_localizer["UnableToRetrieve"]} { id}");
                 }
                 var result = await _mediator.Send(new DeleteApplicantCommand
                 {
@@ -181,10 +190,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                 });
                 if (result)
                 {
-                    return Ok("Record deleted successfully.!");
+                    return Ok($"{_localizer["RecordDeleted"]}");
                 }
 
-                return BadRequest("Unable to delete record..");
+                return BadRequest($"{_localizer["UnableToDelete"]}");
             }
             catch (HahnException e)
             {
