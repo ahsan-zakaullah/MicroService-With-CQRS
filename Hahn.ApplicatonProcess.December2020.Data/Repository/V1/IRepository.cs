@@ -7,9 +7,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
     {
         IQueryable<TEntity> GetAll();
 
-        Task<TEntity> AddAsync(TEntity entity);
+        Task<bool> AddAsync(TEntity entity);
 
-        Task<TEntity> UpdateAsync(TEntity entity);
+        Task<bool> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
     }
 }

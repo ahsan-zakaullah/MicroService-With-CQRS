@@ -2,16 +2,20 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Data.Database;
+using Hahn.ApplicatonProcess.December2020.Data.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
         private readonly ApplicantDbContext _applicantContext;
+        private readonly ILogger<Repository<TEntity>> _logger;
 
-        public Repository(ApplicantDbContext applicantContext)
+        public Repository(ApplicantDbContext applicantContext, ILogger<Repository<TEntity>> logger)
         {
             _applicantContext = applicantContext;
+            _logger = logger;
         }
 
         public IQueryable<TEntity> GetAll()
@@ -20,17 +24,18 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
             {
                 return _applicantContext.Set<TEntity>();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new Exception("Couldn't retrieve entities");
+                _logger.LogError(exception.Message);
+                throw new HahnException("Couldn't retrieve records");
             }
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task<bool> AddAsync(TEntity entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+                throw new HahnException($"{nameof(AddAsync)} entity must not be null");
             }
 
             try
@@ -38,15 +43,16 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
                 await _applicantContext.AddAsync(entity);
                 await _applicantContext.SaveChangesAsync();
 
-                return entity;
+                return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new Exception($"{nameof(entity)} could not be saved");
+                _logger.LogError(exception.Message);
+                throw new HahnException($"{nameof(entity)} could not be saved");
             }
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -58,11 +64,12 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
                 _applicantContext.Update(entity);
                 await _applicantContext.SaveChangesAsync();
 
-                return entity;
+                return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new Exception($"{nameof(entity)} could not be updated");
+                _logger.LogError(exception.Message);
+                throw new HahnException($"{nameof(entity)} could not be updated");
             }
         }
 
@@ -80,9 +87,10 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new Exception($"{nameof(entity)} could not be updated");
+                _logger.LogError(exception.Message);
+                throw new HahnException($"{nameof(entity)} could not be updated");
             }
         }
     }

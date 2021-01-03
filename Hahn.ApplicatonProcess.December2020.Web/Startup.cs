@@ -38,7 +38,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ApplicantDbContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+            services.AddDbContext<ApplicantDbContext>(options => options.UseInMemoryDatabase("ApplicantDatabase"));// TODO: Need to define in app settings.
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -66,8 +66,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddTransient<IValidator<CreateApplicantModel>, CreateApplicantModelValidator>();
             services.AddTransient<IValidator<UpdateApplicantModel>, UpdateApplicantModelValidator>();
 
-            services.AddTransient<IRequestHandler<CreateApplicantCommand, Applicant>, CreateApplicantCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateApplicantCommand, Applicant>, UpdateApplicantCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateApplicantCommand, bool>, CreateApplicantCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateApplicantCommand, bool>, UpdateApplicantCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteApplicantCommand, bool>, DeleteApplicantCommandHandler>();
             services.AddTransient<IRequestHandler<GetApplicantByIdQuery, Applicant>, GetApplicantByIdQueryHandler>();
         }
 

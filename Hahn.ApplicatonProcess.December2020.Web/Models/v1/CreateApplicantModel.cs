@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Models.v1
 {
@@ -12,5 +13,13 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Models.v1
         public string EmailAddress { get; set; }
         public int Age { get; set; }
         public bool Hired { get; set; }
+        [JsonIgnore]
+        public int? InsertedBy { get; set; }
+        [JsonIgnore]
+        public int? UpdatedBy { get; set; }
+        [JsonIgnore]
+        public DateTime? CreatedDate { get; set; }
+        [JsonIgnore]
+        public DateTime? UpdatedDate { get; set; }
     }
 }

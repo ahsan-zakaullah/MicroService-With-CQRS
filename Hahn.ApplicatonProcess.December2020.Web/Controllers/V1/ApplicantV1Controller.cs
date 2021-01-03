@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command;
 using Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Query;
+using Hahn.ApplicatonProcess.December2020.Data.Utils;
 using Hahn.ApplicatonProcess.December2020.Domain.Entities;
 using Hahn.ApplicatonProcess.December2020.Web.Models.v1;
 using MediatR;
@@ -26,25 +27,40 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             _logger = logger;
         }
 
+        /// <summary>
+        /// Action to create a new applicant in the database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the created applicant</returns>
+        /// <response code="200">Returned if the applicant was created</response>
+        /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be saved</response>
+        /// <response code="422">Returned when the validation failed</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Applicant>>> GetById(int id=1)
+        public async Task<ActionResult<IEnumerable<Applicant>>> GetById(int id = 1)
         {
             try
             {
                 var response = await Mediator.Send(new GetApplicantByIdQuery
-                    {
-                        Id = id
-                    }
+                {
+                    Id = id
+                }
                 );
                 return Ok(response);
+            }
+            catch (HahnException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception e)
             {
                 _logger.LogError(e.Message);
                 return BadRequest("Unable to get data.");
             }
-            
+
         }
 
 
@@ -64,10 +80,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         {
             try
             {
-                return await _mediator.Send(new CreateApplicantCommand
+                var isSaved = await _mediator.Send(new CreateApplicantCommand
                 {
                     Applicant = _mapper.Map<Applicant>(createApplicantModel)
                 });
+                if (isSaved)
+                {
+                    return Ok("Record saved successfully.!");
+                }
+
+                return BadRequest("Unable to save record..");
+            }
+            catch (HahnException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception ex)
             {
@@ -102,10 +128,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                     return BadRequest($"No applicant found with the id {updateApplicantModel.Id}");
                 }
 
-                return await _mediator.Send(new UpdateApplicantCommand
+                var isUpdated = await _mediator.Send(new UpdateApplicantCommand
                 {
                     Applicant = _mapper.Map(updateApplicantModel, applicant)
                 });
+                if (isUpdated)
+                {
+                    return Ok("Record updated successfully.!");
+                }
+
+                return BadRequest("Unable to update record..");
+            }
+            catch (HahnException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception ex)
             {
@@ -139,11 +175,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                 {
                     return BadRequest($"No applicant found with the id {id}");
                 }
-
-                return await _mediator.Send(new DeleteApplicantCommand
+                var result = await _mediator.Send(new DeleteApplicantCommand
                 {
                     Applicant = applicant
                 });
+                if (result)
+                {
+                    return Ok("Record deleted successfully.!");
+                }
+
+                return BadRequest("Unable to delete record..");
+            }
+            catch (HahnException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception ex)
             {

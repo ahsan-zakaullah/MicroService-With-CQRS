@@ -11,15 +11,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage("The name must be at least 5 character long")
-                .Length(5);
+                .MinimumLength(5);
             RuleFor(x => x.FamilyName)
                 .NotEmpty()
                 .WithMessage("The name must be at least 5 character long")
-                .Length(5);
+                .MinimumLength(5);
             RuleFor(x => x.Address)
                 .NotEmpty()
                 .WithMessage("The name must be at least 10 character long")
-                .Length(10);
+                .MinimumLength(10);
             RuleFor(x => x.Age)
                 .InclusiveBetween(20, 60)
                 .WithMessage("The minimum age is 20 and the maximum age is 60 years");
@@ -51,15 +51,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
             RuleFor(x => x.Name)
                 .NotEmpty()
                 .WithMessage("The name must be at least 5 character long")
-                .Length(5);
+                .MinimumLength(5);
             RuleFor(x => x.FamilyName)
                 .NotEmpty()
                 .WithMessage("The name must be at least 5 character long")
-                .Length(5);
+                .MinimumLength(5);
             RuleFor(x => x.Address)
                 .NotEmpty()
                 .WithMessage("The name must be at least 10 character long")
-                .Length(10);
+                .MinimumLength(10);
             RuleFor(x => x.Age)
                 .InclusiveBetween(20, 60)
                 .WithMessage("The minimum age is 20 and the maximum age is 60 years");
