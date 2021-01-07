@@ -85,7 +85,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPost]
-        public async Task<ActionResult<Applicant>> Create([FromBody] CreateApplicantModel createApplicantModel)
+        public async Task<ActionResult> Create([FromBody] CreateApplicantModel createApplicantModel)
         {
             try
             {
@@ -102,12 +102,12 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             }
             catch (HahnException e)
             {
-                return BadRequest($"{_localizer["NotFoundApplicant"]}");
+                return BadRequest(e.Message);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return BadRequest($"{_localizer["UnableToSave"]}");
             }
         }
 
@@ -123,7 +123,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpPut]
-        public async Task<ActionResult<Applicant>> Update([FromBody] UpdateApplicantModel updateApplicantModel)
+        public async Task<ActionResult> Update([FromBody] UpdateApplicantModel updateApplicantModel)
         {
             try
             {
@@ -154,7 +154,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest($"{_localizer["UnableToUpdate"]}");
             }
         }
 
@@ -201,7 +202,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _logger.LogError(ex.Message);
+                return BadRequest($"{_localizer["UnableToDelete"]}");
             }
         }
 

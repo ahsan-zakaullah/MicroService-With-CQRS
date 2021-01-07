@@ -33,7 +33,6 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
 
             _createApplicantModel = new CreateApplicantModel
             {
-                Id = 1,
                 Name = "Ahsan",
                 FamilyName = "Raza",
                 Address = "Berlin",
@@ -78,8 +77,8 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
 
             var result = await _test.Create(_createApplicantModel);
 
-            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result.Result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
+            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+            (result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
         }
 
         [Theory]
@@ -91,8 +90,8 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
 
             var result = await _test.Update(_updateApplicantModel);
 
-            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result.Result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
+            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+            (result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
         }
 
         [Fact]
@@ -100,9 +99,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
         {
             var result = await _test.Create(_createApplicantModel);
 
-            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
-            result.Value.Should().BeOfType<Applicant>();
-            result.Value.Id.Should().Be(_id);
+            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
         }
 
         [Fact]
@@ -110,9 +107,7 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
         {
             var result = await _test.Update(_updateApplicantModel);
 
-            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
-            result.Value.Should().BeOfType<Applicant>();
-            result.Value.Id.Should().Be(_id);
+            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
         }
     }
 }

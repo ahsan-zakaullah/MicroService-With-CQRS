@@ -10,16 +10,15 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .WithMessage("The name must be at least 5 character long")
-                .MinimumLength(5);
+                .MinimumLength(5).WithMessage("The name must be at least 5 character long");
             RuleFor(x => x.FamilyName)
                 .NotEmpty()
-                .WithMessage("The name must be at least 5 character long")
-                .MinimumLength(5);
+                
+                .MinimumLength(5).WithMessage("The family name must be at least 5 character long");
             RuleFor(x => x.Address)
                 .NotEmpty()
-                .WithMessage("The name must be at least 10 character long")
-                .MinimumLength(10);
+                
+                .MinimumLength(10).WithMessage("The address must be at least 10 character long");
             RuleFor(x => x.Age)
                 .InclusiveBetween(20, 60)
                 .WithMessage("The minimum age is 20 and the maximum age is 60 years");
@@ -50,16 +49,16 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .WithMessage("The name must be at least 5 character long")
-                .MinimumLength(5);
+                
+                .MinimumLength(5).WithMessage("The name must be at least 5 character long");
             RuleFor(x => x.FamilyName)
                 .NotEmpty()
-                .WithMessage("The name must be at least 5 character long")
-                .MinimumLength(5);
+               
+                .MinimumLength(5).WithMessage("The family name must be at least 5 character long");
             RuleFor(x => x.Address)
                 .NotEmpty()
-                .WithMessage("The name must be at least 10 character long")
-                .MinimumLength(10);
+                
+                .MinimumLength(10).WithMessage("The address must be at least 10 character long");
             RuleFor(x => x.Age)
                 .InclusiveBetween(20, 60)
                 .WithMessage("The minimum age is 20 and the maximum age is 60 years");

@@ -35,12 +35,12 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Mappers
             _updateApplicantModel = new UpdateApplicantModel
             {
                 Id = 2,
-                Name = "JJ",
-                FamilyName = "Kotze",
+                Name = "Ahsan",
+                FamilyName = "Raza",
                 Address = "Berlin",
                 EmailAddress = "ahsan.raza@intagleo.com",
                 CountryOfOrigin = "Germany",
-                Age = 26,
+                Age = 30,
                 Hired = true
             };
         }

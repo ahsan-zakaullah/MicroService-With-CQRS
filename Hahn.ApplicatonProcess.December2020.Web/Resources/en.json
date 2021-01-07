@@ -1,0 +1,10 @@
+{
+  "UnableToRetrieve": "Unable to get data.",
+  "RecordSaved": "Record saved successfully.!",
+  "UnableToSave": "Unable to save data.",
+  "NotFoundApplicant": "No applicant found with the id ",
+  "RecordUpdated": "Record updated successfully.!",
+  "UnableToUpdate": "Unable to update data.",
+  "UnableToDelete": "Unable to delete record.",
+  "RecordDeleted": "Record deleted successfully.!"
+}

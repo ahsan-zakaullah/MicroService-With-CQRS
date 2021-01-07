@@ -27,7 +27,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Tests.Repository.v1
             _testee = new Repository<Applicant>(Context, appLogger);
             _newApplicant = new Applicant
             {
-                Id = 5,
                 Name = "Ahsan",
                 FamilyName = "Raza",
                 Address = "Berlin",
@@ -72,13 +71,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Tests.Repository.v1
             result.Should().BeTrue();
         }
 
-        [Fact]
-        public async void RemoveApplicantAsync_WhenApplicantIsNotNull_ShouldReturnTrue()
-        {
-            var result = await _testee.DeleteAsync(_newApplicant);
-
-            result.Should().BeTrue();
-        }
 
         [Fact]
         public void RemoveApplicantAsync_WhenApplicantIsNull_ThrowException()
@@ -94,14 +86,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Tests.Repository.v1
             await _testee.AddAsync(_newApplicant);
 
             Context.Applicants.Count().Should().Be(applicantCount + 1);
-        }
-
-        [Fact]
-        public void GetAll_WhenExceptionOccurs_ThrowsException()
-        {
-            A.CallTo(() => _applicantContext.Set<Applicant>()).Throws<Exception>();
-
-            _testeeFake.Invoking(x => x.GetAll()).Should().Throw<Exception>().WithMessage("Couldn't retrieve entities");
         }
 
         [Fact]

@@ -131,7 +131,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             };
             var localizationOptions = new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(culture: "de-DE", uiCulture: "de-DE"),
+                DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             };

@@ -16,37 +16,39 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Validators
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         [InlineData("a")]
         public void FirstName_WhenShorterThanFiveCharacter_ShouldHaveValidationError(string firstName)
         {
-            _test.ShouldHaveValidationErrorFor(x => x.Name, firstName).WithErrorMessage("The first name must be at least 5 character long");
+            _test.ShouldHaveValidationErrorFor(x => x.Name, firstName).WithErrorMessage("The name must be at least 5 character long");
         }
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         [InlineData("a")]
         public void FamilyName_WhenShorterThanFiveCharacter_ShouldHaveValidationError(string familyName)
         {
-            _test.ShouldHaveValidationErrorFor(x => x.FamilyName, familyName).WithErrorMessage("The last name must be at least 5 character long");
+            _test.ShouldHaveValidationErrorFor(x => x.FamilyName, familyName).WithErrorMessage("The family name must be at least 5 character long");
         }
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         [InlineData("Berlin")]
         public void Address_WhenShorterThanTenCharacter_ShouldHaveValidationError(string address)
         {
-            _test.ShouldHaveValidationErrorFor(x => x.Address, address).WithErrorMessage("Address must be 10 characters long");
+            _test.ShouldHaveValidationErrorFor(x => x.Address, address).WithErrorMessage("The address must be at least 10 character long");
         }
         [Theory]
         [InlineData("")]
         [InlineData(null)]
-        [InlineData("Berlin")]
+        public void EmailAddress_WhenEmptyOrNull_ShouldHaveValidationError(string emailAddress)
+        {
+            _test.ShouldHaveValidationErrorFor(x => x.EmailAddress, emailAddress).WithErrorMessage("Please enter the email address");
+        }
+        [Theory]
+        [InlineData("ahsanzakaullah")]
         public void EmailAddress_WhenFormatNotValid_ShouldHaveValidationError(string emailAddress)
         {
-            _test.ShouldHaveValidationErrorFor(x => x.EmailAddress, emailAddress).WithErrorMessage("Email should be in valid format");
+            _test.ShouldHaveValidationErrorFor(x => x.EmailAddress, emailAddress).WithErrorMessage("Please enter the valid email");
         }
 
         [Theory]
