@@ -1,76 +1,76 @@
 [
   {
     "Key": "UnableToRetrieve",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
 
         "en-US": "Unable to get data.",
         "de-DE": "Daten können nicht abgerufen werden."
       }
-    ]
+    
   },
 
   {
     "Key": "RecordSaved",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Record saved successfully.!",
         "de-DE": "Datensatz erfolgreich gespeichert.!"
       }
-    ]
+    
   },
   {
     "Key": "UnableToSave",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Unable to save data.",
         "de-DE": "Daten können nicht gespeichert werden."
       }
-    ]
+    
   },
   {
     "Key": "NotFoundApplicant",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "No applicant found with the id ",
         "de-DE": "Kein Bewerber mit der ID gefunden."
       }
-    ]
+    
   },
   {
     "Key": "RecordUpdated",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Record updated successfully.!",
         "de-DE": "Datensatz erfolgreich aktualisiert."
       }
-    ]
+    
   },
   {
     "Key": "UnableToUpdate",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Unable to update data.",
         "de-DE": "Daten können nicht abgerufen werden."
       }
-    ]
+    
   },
   {
     "Key": "UnableToDelete",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Unable to delete record.",
         "de-DE": "Datensatz kann nicht gelöscht werden."
       }
-    ]
+    
   },
   {
     "Key": "RecordDeleted",
-    "LocalizedValue": [
+    "LocalizedValue": 
       {
         "en-US": "Record deleted successfully.!",
         "de-DE": "Datensatz erfolgreich aktualisiert.!"
       }
-    ]
+    
   }
 ]

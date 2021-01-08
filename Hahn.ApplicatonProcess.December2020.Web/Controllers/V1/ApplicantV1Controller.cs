@@ -39,6 +39,37 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         /// <summary>
         /// Action to create a new applicant in the database.
         /// </summary>
+        /// <returns>Returns the created applicant</returns>
+        /// <response code="200">Returned if the applicant was created</response>
+        /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be saved</response>
+        /// <response code="422">Returned when the validation failed</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Applicant>>> GetAll()
+        {
+            try
+            {
+                var response = await Mediator.Send(new GetAllApplicantsQuery()
+                );
+                return Ok(response);
+            }
+            catch (HahnException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest($"{_localizer["UnableToRetrieve"]}");
+            }
+
+        }
+        /// <summary>
+        /// Action to create a new applicant in the database.
+        /// </summary>
         /// <param name="id"></param>
         /// <returns>Returns the created applicant</returns>
         /// <response code="200">Returned if the applicant was created</response>

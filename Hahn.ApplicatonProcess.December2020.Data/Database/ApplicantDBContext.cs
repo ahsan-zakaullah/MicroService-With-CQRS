@@ -16,7 +16,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Database
             {
                 new Applicant
                 {
-                    Id = 1,
                     Name = "Ahsan",
                     FamilyName = "Zaka Ullah",
                     Address = "Intagleo Systems",

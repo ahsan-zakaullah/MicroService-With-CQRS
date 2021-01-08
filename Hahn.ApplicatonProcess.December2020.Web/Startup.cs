@@ -28,7 +28,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using JsonStringLocalizerFactory = Askmethat.Aspnet.JsonLocalizer.Localizer.JsonStringLocalizerFactory;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -48,7 +47,18 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddDbContext<ApplicantDbContext>(options => options.UseInMemoryDatabase("ApplicantDatabase"));// TODO: Need to define in app settings.
 
             services.AddAutoMapper(typeof(Startup));
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().
+                            AllowAnyMethod().
+                            AllowAnyHeader();
+                        //builder.WithOrigins("https://seamcorapi.appliedprinciples.eu", "https://seamcorapidev.appliedprinciples.eu",
+                        //    "https://portalapi.appliedprinciples.eu","http://localhost");
+                    });
+            });
             services.AddMvc().AddFluentValidation();
             services.AddSwaggerGen(options =>
             {
@@ -97,6 +107,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddTransient<IRequestHandler<UpdateApplicantCommand, bool>, UpdateApplicantCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteApplicantCommand, bool>, DeleteApplicantCommandHandler>();
             services.AddTransient<IRequestHandler<GetApplicantByIdQuery, Applicant>, GetApplicantByIdQueryHandler>();
+            services.AddTransient<IRequestHandler<GetAllApplicantsQuery, List<Applicant>>, GetAllApplicantsHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,7 +122,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             app.UseSwagger();
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn Services"));
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

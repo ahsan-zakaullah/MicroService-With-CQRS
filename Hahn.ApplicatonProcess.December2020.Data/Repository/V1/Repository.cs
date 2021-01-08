@@ -22,7 +22,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
         {
             try
             {
-                return _applicantContext.Set<TEntity>();
+                return  _applicantContext.Set<TEntity>();
             }
             catch (Exception exception)
             {
