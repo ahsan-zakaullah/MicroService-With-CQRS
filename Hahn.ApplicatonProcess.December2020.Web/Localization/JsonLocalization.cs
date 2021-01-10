@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Localization
 {
+    /// <summary>
+    /// Define class to get the values from json file
+    /// </summary>
     class JsonLocalization
     {
         public string Key { get; set; }

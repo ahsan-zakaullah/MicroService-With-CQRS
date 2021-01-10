@@ -32,7 +32,6 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Validators
 
         [Theory]
         [InlineData("")]
-        [InlineData(null)]
         [InlineData("Berlin")]
         public void Address_WhenShorterThanTenCharacter_ShouldHaveValidationError(string address)
         {

@@ -29,11 +29,15 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.v1.Command
         [Fact]
         public async void Handle_ShouldReturnTrue()
         {
-            A.CallTo(() => _repository.AddAsync(A<Applicant>._)).Returns(true);
+            A.CallTo(() => _repository.AddAsync(A<Applicant>._)).Returns(new Applicant()
+            {
+                Name = "Ahsan"
+            });
 
             var result = await _test.Handle(new CreateApplicantCommand(), default);
 
-            result.Should().BeTrue();
+            result.Should().BeOfType<Applicant>();
+            result.Name.Should().Be("Ahsan");
         }
     }
 }

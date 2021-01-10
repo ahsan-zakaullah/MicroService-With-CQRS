@@ -46,7 +46,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Tests.Repository.v1
 
             var result = await _testee.UpdateAsync(applicant);
 
-            result.Should().BeTrue();
+            result.Should().BeOfType<Applicant>();
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Tests.Repository.v1
         {
             var result = await _testee.AddAsync(_newApplicant);
 
-            result.Should().BeTrue();
+            result.Should().BeOfType<Applicant>();
         }
 
 

@@ -1,0 +1,6 @@
+2021-01-10T14:45:10.2009161+05:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-01-10T14:45:10.2337594+05:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-01-10T14:45:10.2356084+05:00  [INF] Content root path: "D:\Ahsan Raza\Ahsan Git\HahnApplication-WebApi\Hahn.ApplicatonProcess.December2020.Web" (b5d60022)
+2021-01-10T15:25:00.8421614+05:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2021-01-10T15:25:00.8495728+05:00  [INF] Hosting environment: "Development" (c3307c92)
+2021-01-10T15:25:00.8516956+05:00  [INF] Content root path: "D:\Ahsan Raza\Ahsan Git\HahnApplication-WebApi\Hahn.ApplicatonProcess.December2020.Web" (b5d60022)
