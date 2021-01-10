@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Middleware
 {
+    /// <summary>
+    /// Define the middleware to catch any unhandled exceptions
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
@@ -35,7 +38,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Middleware
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return context.Response.WriteAsync(new ErrorDetails()
+            return context.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = context.Response.StatusCode,
                 Message = "Something went wrong !Internal Server Error"

@@ -4,6 +4,9 @@ using RESTCountries.Services;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
 {
+    /// <summary>
+    /// Create applicant fluent validation
+    /// </summary>
     public class CreateApplicantModelValidator : AbstractValidator<CreateApplicantModel>
     {
         public CreateApplicantModelValidator()
@@ -35,7 +38,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
                 .NotEmpty()
                 .Must(IsValidCountryCategory).WithMessage("Select a valid country");
         }
-
+        // define the method to verify the country by using REST Countries services
         private bool  IsValidCountryCategory(CreateApplicantModel applicant, string homeCountry)
         {
             var validCountries =  RESTCountriesAPI.GetAllCountriesAsync().Result;
@@ -43,6 +46,9 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators.v1
             return validCountries.Exists(x=>x.Name==homeCountry);
         }
     }
+    /// <summary>
+    /// update applicant fluent validation
+    /// </summary>
     public class UpdateApplicantModelValidator : AbstractValidator<UpdateApplicantModel>
     {
         public UpdateApplicantModelValidator()

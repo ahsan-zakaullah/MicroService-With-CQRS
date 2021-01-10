@@ -6,11 +6,12 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Models.v1
     /// <summary>
     /// request model for applicant
     /// </summary>
-    public class UpdateApplicantModel
+    public class DeleteApplicantModel
     {
         /// <summary>
         /// Id for applicant
         /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public int Id { get; set; }
         /// <summary>
         /// First name of applicant

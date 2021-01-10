@@ -5,6 +5,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Filters
 {
+    /// <summary>
+    /// Applicant filter use to assign the default values of requesting models.
+    /// </summary>
     public class ApplicantFilter : ISchemaFilter
     {
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
@@ -18,7 +21,6 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Filters
             {
                 "CreateApplicantModel" => new OpenApiObject
                 {
-                    ["id"] = new OpenApiInteger(1),
                     ["Name"] = new OpenApiString("Ahsan"),
                     ["FamilyName"] = new OpenApiString("Zaka Ullah"),
                     ["Address"] = new OpenApiString("Intagleo Systems"),

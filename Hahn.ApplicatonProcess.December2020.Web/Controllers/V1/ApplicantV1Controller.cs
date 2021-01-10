@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command;
@@ -37,10 +37,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         }
 
         /// <summary>
-        /// Action to create a new applicant in the database.
+        /// Action to get all applicant in the database.
         /// </summary>
-        /// <returns>Returns the created applicant</returns>
-        /// <response code="200">Returned if the applicant was created</response>
+        /// <returns>Returns the list of applicants</returns>
+        /// <response code="200">Returned if the applicants found</response>
         /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be saved</response>
         /// <response code="422">Returned when the validation failed</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -54,7 +54,11 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             {
                 var response = await Mediator.Send(new GetAllApplicantsQuery()
                 );
-                return Ok(response);
+                if (response.Any())
+                {
+                    return Ok(response);
+                }
+                return Ok("No record found.");
             }
             catch (HahnException e)
             {
@@ -68,11 +72,11 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
 
         }
         /// <summary>
-        /// Action to create a new applicant in the database.
+        /// Action to get applicant by Id in the database.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Returns the created applicant</returns>
-        /// <response code="200">Returned if the applicant was created</response>
+        /// <returns>Returns the applicant</returns>
+        /// <response code="200">Returned if the applicant was find</response>
         /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be saved</response>
         /// <response code="422">Returned when the validation failed</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -181,10 +185,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
 
 
         /// <summary>
-        /// Action to update an existing applicant
+        /// Action to delete an existing applicant
         /// </summary>
         /// <param name="model"></param>
-        /// <returns>Returns the updated applicant</returns>
+        /// <returns>Returns the boolean status either deleted or not </returns>
         /// <response code="200">Returned true if the applicant was deleted</response>
         /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be found</response>
         /// <response code="422">Returned when the validation failed</response>
@@ -192,7 +196,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [HttpDelete("Delete")]
-        public async Task<ActionResult<bool>> Delete(Applicant model)
+        public async Task<ActionResult<bool>> Delete(DeleteApplicantModel model)
         {
             try
             {

@@ -3,11 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Database
 {
+    /// <summary>
+    /// Application DB Context and inherited from DBContext.
+    /// </summary>
     public class ApplicantDbContext : DbContext
     {
+        #region Constructors
         public ApplicantDbContext()
         {
-            
+
         }
         public ApplicantDbContext(DbContextOptions<ApplicantDbContext> options)
             : base(options)
@@ -29,11 +33,19 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Database
             //Applicants.AddRange(applicant);
             //SaveChanges();
         }
-        public DbSet<Applicant> Applicants { get; set; }
 
+        #endregion
+
+        #region protected
+        /// <summary>
+        /// Overriding the OnConfiguring method of DBContext to configure any entity.
+        /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
+        /// <summary>
+        /// Overriding the On model creating method of DBContext to define the entity relation and any seeding data.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
@@ -49,5 +61,15 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Database
                 //entity.HasData(new Applicant("Seeding", "Zaka Ullah", "Intagleo Systems", "Pakistan", "ahsanzakaullah@gmail.com", 30, true));
             });
         }
+
+        #endregion
+
+        #region public
+        /// <summary>
+        /// Define the applicants property.
+        /// </summary>
+        public DbSet<Applicant> Applicants { get; set; }
+
+        #endregion
     }
 }
