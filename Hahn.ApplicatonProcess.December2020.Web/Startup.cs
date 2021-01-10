@@ -55,8 +55,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                         builder.AllowAnyOrigin().
                             AllowAnyMethod().
                             AllowAnyHeader();
-                        //builder.WithOrigins("https://seamcorapi.appliedprinciples.eu", "https://seamcorapidev.appliedprinciples.eu",
-                        //    "https://portalapi.appliedprinciples.eu","http://localhost");
+                        builder.WithOrigins("http://localhost:8090", "http://localhost");
                     });
             });
             services.AddMvc().AddFluentValidation();
@@ -103,8 +102,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddTransient<IValidator<CreateApplicantModel>, CreateApplicantModelValidator>();
             services.AddTransient<IValidator<UpdateApplicantModel>, UpdateApplicantModelValidator>();
 
-            services.AddTransient<IRequestHandler<CreateApplicantCommand, bool>, CreateApplicantCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateApplicantCommand, bool>, UpdateApplicantCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateApplicantCommand, Applicant>, CreateApplicantCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateApplicantCommand, Applicant>, UpdateApplicantCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteApplicantCommand, bool>, DeleteApplicantCommandHandler>();
             services.AddTransient<IRequestHandler<GetApplicantByIdQuery, Applicant>, GetApplicantByIdQueryHandler>();
             services.AddTransient<IRequestHandler<GetAllApplicantsQuery, List<Applicant>>, GetAllApplicantsHandler>();

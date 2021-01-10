@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command
 {
-    public class UpdateApplicantCommandHandler : IRequestHandler<UpdateApplicantCommand, bool>
+    public class UpdateApplicantCommandHandler : IRequestHandler<UpdateApplicantCommand, Applicant>
     {
         private readonly IRepository<Applicant> _repository;
 
@@ -15,10 +15,10 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command
             _repository = repository;
         }
 
-        public async Task<bool> Handle(UpdateApplicantCommand request, CancellationToken cancellationToken)
+        public async Task<Applicant> Handle(UpdateApplicantCommand request, CancellationToken cancellationToken)
         {
-            var isUpdated = await _repository.UpdateAsync(request.Applicant);
-            return isUpdated;
+            return await _repository.UpdateAsync(request.Applicant);
+            
         }
     }
 }

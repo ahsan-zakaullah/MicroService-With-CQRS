@@ -65,8 +65,8 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
             };
 
             A.CallTo(() => mapper.Map<Applicant>(A<Applicant>._)).Returns(applicant);
-            A.CallTo(() => _mediator.Send(A<CreateApplicantCommand>._, default)).Returns(true);
-            A.CallTo(() => _mediator.Send(A<UpdateApplicantCommand>._, default)).Returns(true);
+            A.CallTo(() => _mediator.Send(A<CreateApplicantCommand>._, default)).Returns(applicant);
+            A.CallTo(() => _mediator.Send(A<UpdateApplicantCommand>._, default)).Returns(applicant);
         }
 
         [Theory]
@@ -76,9 +76,8 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
             A.CallTo(() => _mediator.Send(A<CreateApplicantCommand>._, default)).Throws(new ArgumentException(exceptionMessage));
 
             var result = await _test.Create(_createApplicantModel);
-
-            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
+            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+            (result.Result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
         }
 
         [Theory]
@@ -90,8 +89,9 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
 
             var result = await _test.Update(_updateApplicantModel);
 
-            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
-            (result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
+
+            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+            (result.Result as BadRequestObjectResult)?.Value.Should().Be(exceptionMessage);
         }
 
         [Fact]
@@ -99,15 +99,18 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.Controllers
         {
             var result = await _test.Create(_createApplicantModel);
 
-            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
+            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
+            result.Value.Should().BeOfType<Applicant>();
+            result.Value.Id.Should().Be(_id);
         }
 
         [Fact]
         public async void Put_ShouldReturnApplicant()
         {
             var result = await _test.Update(_updateApplicantModel);
-
-            (result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
+            (result.Result as StatusCodeResult)?.StatusCode.Should().Be((int)HttpStatusCode.OK);
+            result.Value.Should().BeOfType<Applicant>();
+            result.Value.Id.Should().Be(_id);
         }
     }
 }

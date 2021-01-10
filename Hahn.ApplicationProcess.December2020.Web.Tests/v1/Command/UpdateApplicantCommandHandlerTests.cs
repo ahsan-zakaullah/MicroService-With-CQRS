@@ -11,17 +11,23 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.v1.Command
     {
         private readonly UpdateApplicantCommandHandler _test;
         private readonly IRepository<Applicant> _repository;
+        private readonly Applicant _applicant;
 
         public UpdateApplicantCommandHandlerTests()
         {
             _repository = A.Fake<IRepository<Applicant>>();
             _test = new UpdateApplicantCommandHandler(_repository);
+
+            _applicant = new Applicant()
+            {
+                Name = "Ahsan"
+            };
         }
 
         [Fact]
         public async void Handle_ShouldCallApplicantUpdaterSenderSendTrue()
         {
-            A.CallTo(() => _repository.UpdateAsync(A<Applicant>._)).Returns(true);
+            A.CallTo(() => _repository.UpdateAsync(A<Applicant>._)).Returns(_applicant);
 
             await _test.Handle(new UpdateApplicantCommand(), default);
         }
@@ -29,11 +35,12 @@ namespace Hahn.ApplicationProcess.December2020.Web.Tests.v1.Command
         [Fact]
         public async void Handle_ShouldReturnTrue()
         {
-            A.CallTo(() => _repository.UpdateAsync(A<Applicant>._)).Returns(true);
+            A.CallTo(() => _repository.UpdateAsync(A<Applicant>._)).Returns(_applicant);
 
             var result = await _test.Handle(new UpdateApplicantCommand(), default);
 
-            result.Should().BeTrue();
+            result.Should().BeOfType<Applicant>();
+            result.Name.Should().Be(_applicant.Name);
         }
 
         [Fact]

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command
 {
-    public class CreateApplicantCommand : IRequest<bool>
+    public class CreateApplicantCommand : IRequest<Applicant>
     {
         public Applicant Applicant { get; set; }
     }

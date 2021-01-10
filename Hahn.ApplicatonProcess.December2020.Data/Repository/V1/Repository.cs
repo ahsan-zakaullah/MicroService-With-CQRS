@@ -31,7 +31,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
             }
         }
 
-        public async Task<bool> AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -43,7 +43,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
                 await _applicantContext.AddAsync(entity);
                 await _applicantContext.SaveChangesAsync();
 
-                return true;
+                return entity;
             }
             catch (Exception exception)
             {
@@ -52,7 +52,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
             }
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -64,7 +64,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
                 _applicantContext.Update(entity);
                 await _applicantContext.SaveChangesAsync();
 
-                return true;
+                return entity;
             }
             catch (Exception exception)
             {

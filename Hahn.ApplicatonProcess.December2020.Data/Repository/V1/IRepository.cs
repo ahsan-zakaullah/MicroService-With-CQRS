@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Hahn.ApplicatonProcess.December2020.Domain.Entities;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 {
@@ -7,9 +8,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
     {
         IQueryable<TEntity> GetAll();
 
-        Task<bool> AddAsync(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
 
-        Task<bool> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
     }
 }

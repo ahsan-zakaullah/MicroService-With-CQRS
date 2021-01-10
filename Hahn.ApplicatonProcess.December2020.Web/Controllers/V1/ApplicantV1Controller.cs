@@ -47,7 +47,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Applicant>>> GetAll()
         {
             try
@@ -115,21 +115,16 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateApplicantModel createApplicantModel)
+        [HttpPost("Create")]
+        public async Task<ActionResult<Applicant>> Create([FromBody] CreateApplicantModel createApplicantModel)
         {
             try
             {
-                var isSaved = await _mediator.Send(new CreateApplicantCommand
+                return await _mediator.Send(new CreateApplicantCommand
                 {
                     Applicant = _mapper.Map<Applicant>(createApplicantModel)
                 });
-                if (isSaved)
-                {
-                    return Ok($"{_localizer["RecordSaved"]}");
-                }
 
-                return BadRequest($"{_localizer["UnableToSave"]}");
             }
             catch (HahnException e)
             {
@@ -153,8 +148,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UpdateApplicantModel updateApplicantModel)
+        [HttpPut("Update")]
+        public async Task<ActionResult<Applicant>> Update([FromBody] UpdateApplicantModel updateApplicantModel)
         {
             try
             {
@@ -168,16 +163,10 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                     return NotFound($"{_localizer["NotFoundApplicant"]} {updateApplicantModel.Id}");
                 }
 
-                var isUpdated = await _mediator.Send(new UpdateApplicantCommand
+                return await _mediator.Send(new UpdateApplicantCommand
                 {
                     Applicant = _mapper.Map(updateApplicantModel, applicant)
                 });
-                if (isUpdated)
-                {
-                    return Ok($"{_localizer["RecordUpdated"]}");
-                }
-
-                return BadRequest($"{_localizer["UnableToUpdate"]}");
             }
             catch (HahnException e)
             {
@@ -194,7 +183,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         /// <summary>
         /// Action to update an existing applicant
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="model"></param>
         /// <returns>Returns the updated applicant</returns>
         /// <response code="200">Returned true if the applicant was deleted</response>
         /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be found</response>
@@ -202,19 +191,19 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        [HttpDelete]
-        public async Task<ActionResult<bool>> Delete(int id)
+        [HttpDelete("Delete")]
+        public async Task<ActionResult<bool>> Delete(Applicant model)
         {
             try
             {
                 var applicant = await _mediator.Send(new GetApplicantByIdQuery
                 {
-                    Id = id
+                    Id = model.Id
                 });
 
                 if (applicant == null)
                 {
-                    return BadRequest($"{_localizer["UnableToRetrieve"]} { id}");
+                    return BadRequest($"{_localizer["UnableToRetrieve"]} { model.Id}");
                 }
                 var result = await _mediator.Send(new DeleteApplicantCommand
                 {
