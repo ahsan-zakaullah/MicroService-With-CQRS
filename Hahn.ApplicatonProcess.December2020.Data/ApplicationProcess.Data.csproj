@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hahn.ApplicatonProcess.December2020.Domain\Hahn.ApplicatonProcess.December2020.Domain.csproj" />
+    <ProjectReference Include="..\Hahn.ApplicatonProcess.December2020.Domain\ApplicatonProcess.Domain.csproj" />
   </ItemGroup>
 
 </Project>

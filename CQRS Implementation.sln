@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hahn.ApplicatonProcess.December2020.Web", "Hahn.ApplicatonProcess.December2020.Web\Hahn.ApplicatonProcess.December2020.Web.csproj", "{1A4357BE-95E8-40B5-9348-D7C0441B4BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicatonProcess.Web", "Hahn.ApplicatonProcess.December2020.Web\ApplicatonProcess.Web.csproj", "{1A4357BE-95E8-40B5-9348-D7C0441B4BC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hahn.ApplicatonProcess.December2020.Data", "Hahn.ApplicatonProcess.December2020.Data\Hahn.ApplicatonProcess.December2020.Data.csproj", "{E2FD645B-087C-42B3-A404-20BF773DE144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationProcess.Data", "Hahn.ApplicatonProcess.December2020.Data\ApplicationProcess.Data.csproj", "{E2FD645B-087C-42B3-A404-20BF773DE144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hahn.ApplicatonProcess.December2020.Domain", "Hahn.ApplicatonProcess.December2020.Domain\Hahn.ApplicatonProcess.December2020.Domain.csproj", "{F6215A99-AD7E-4C26-8A0C-D3CBEC2FB57E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicatonProcess.Domain", "Hahn.ApplicatonProcess.December2020.Domain\ApplicatonProcess.Domain.csproj", "{F6215A99-AD7E-4C26-8A0C-D3CBEC2FB57E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{205F4380-D075-4800-A724-54A17C367F77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hahn.ApplicatonProcess.December2020.Data.Tests", "Hahn.ApplicatonProcess.December2020.Data.Tests\Hahn.ApplicatonProcess.December2020.Data.Tests.csproj", "{2CDD10B5-E6EF-4B56-9644-6CD65E909C88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationProcess.Data.Tests", "Hahn.ApplicatonProcess.December2020.Data.Tests\ApplicationProcess.Data.Tests.csproj", "{2CDD10B5-E6EF-4B56-9644-6CD65E909C88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hahn.ApplicationProcess.December2020.Web.Tests", "Hahn.ApplicationProcess.December2020.Web.Tests\Hahn.ApplicationProcess.December2020.Web.Tests.csproj", "{B543FD81-F83A-4569-A4C4-E017F7EBECF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationProcess.Web.Tests", "Hahn.ApplicationProcess.December2020.Web.Tests\ApplicationProcess.Web.Tests.csproj", "{B543FD81-F83A-4569-A4C4-E017F7EBECF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
